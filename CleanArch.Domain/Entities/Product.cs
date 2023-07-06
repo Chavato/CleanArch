@@ -20,6 +20,12 @@ namespace CleanArch.Domain.Entities
                        string image)
         {
             ValidateDomain(name, description, price, stock, image);
+
+            Name = name;
+            Description = description;
+            Price = price;
+            Stock = stock;
+            Image = image;
         }
         public Product(int id,
                        string name,
@@ -29,8 +35,13 @@ namespace CleanArch.Domain.Entities
                        string image)
         {
             DomainExceptionValidation.When(id < 0, "Invalid id value.");
-            Id = id;
             ValidateDomain(name, description, price, stock, image);
+            Id = id;
+            Name = name;
+            Description = description;
+            Price = price;
+            Stock = stock;
+            Image = image;
         }
 
         public void Update(string name,
@@ -65,12 +76,6 @@ namespace CleanArch.Domain.Entities
             DomainExceptionValidation.When(stock < 0, "Invalid stock value.");
 
             DomainExceptionValidation.When(image?.Length > 250, "Invalid image name, too long, maximum 250 characters");
-
-            Name = name;
-            Description = description;
-            Price = price;
-            Stock = stock;
-            Image = image;
         }
 
         public int CategoryId { get; set; }

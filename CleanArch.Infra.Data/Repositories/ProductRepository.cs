@@ -29,7 +29,7 @@ namespace CleanArch.Infra.Data.Repositories
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Product>> GetCategoriesAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _context.Products.ToListAsync();
         }

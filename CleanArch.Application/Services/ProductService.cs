@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using CleanArch.Application.DTOs;
+using CleanArch.Application.Interfaces;
 using CleanArch.Domain.Entities;
 using CleanArch.Domain.Interfaces;
 

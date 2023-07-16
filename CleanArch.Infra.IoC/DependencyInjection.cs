@@ -8,6 +8,9 @@ using CleanArch.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using CleanArch.Domain.Interfaces;
 using CleanArch.Infra.Data.Repositories;
+using CleanArch.Application.Services;
+using CleanArch.Application.Interfaces;
+using CleanArch.Application.Mappings;
 
 namespace CleanArch.Infra.IoC
 {
@@ -21,6 +24,10 @@ namespace CleanArch.Infra.IoC
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
+
 
             return services;
         }

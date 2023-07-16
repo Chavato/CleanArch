@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using CleanArch.Infra.Data.Context;
@@ -11,6 +7,7 @@ using CleanArch.Infra.Data.Repositories;
 using CleanArch.Application.Services;
 using CleanArch.Application.Interfaces;
 using CleanArch.Application.Mappings;
+using MediatR;
 
 namespace CleanArch.Infra.IoC
 {
@@ -28,6 +25,8 @@ namespace CleanArch.Infra.IoC
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
+            var  myHandlers = AppDomain.CurrentDomain.Load("CleanArch.Application");
+            services.AddMediatR(myHandlers);
 
             return services;
         }

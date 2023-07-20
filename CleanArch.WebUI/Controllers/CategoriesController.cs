@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CleanArch.Application.DTOs;
 using CleanArch.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArch.WebUI.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class CategoriesController : Controller
     {
         private readonly ILogger<CategoriesController> _logger;
@@ -27,6 +28,52 @@ namespace CleanArch.WebUI.Controllers
             var categories = await _categoryService.GetCategories();
             return View(categories);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CategoryDTO category)
+        {
+            if (ModelState.IsValid)
+            {
+                await _categoryService.Add(category);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var categoryDto = await _categoryService.GetById(id);
+            if (categoryDto == null)
+                return NotFound();
+
+            return View(categoryDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoryDTO category)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _categoryService.Update(category);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArch.WebUI.Controllers
 {
-    [Route("[controller]")]
     public class ProductsController : Controller
     {
         private readonly ILogger<ProductsController> _logger;

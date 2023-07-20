@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArch.WebUI.Controllers
 {
-    [Route("[controller]/[action]")]
     public class CategoriesController : Controller
     {
         private readonly ILogger<CategoriesController> _logger;

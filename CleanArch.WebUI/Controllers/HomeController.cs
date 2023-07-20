@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArch.WebUI.Controllers
 {
-    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

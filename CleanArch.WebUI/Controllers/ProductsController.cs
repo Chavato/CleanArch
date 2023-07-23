@@ -11,12 +11,15 @@ namespace CleanArch.WebUI.Controllers
         private readonly ILogger<ProductsController> _logger;
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProductsController(ILogger<ProductsController> logger, IProductService productService, ICategoryService categoryService)
+
+        public ProductsController(ILogger<ProductsController> logger, IProductService productService, ICategoryService categoryService, IWebHostEnvironment environment)
         {
             _logger = logger;
             _productService = productService;
             _categoryService = categoryService;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -82,6 +85,19 @@ namespace CleanArch.WebUI.Controllers
         {
             await _productService.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var productDto = await _productService.GetById(id);
+            if (productDto == null) return NotFound();
+
+            var wwwwroot = _environment.WebRootPath;
+            var image = Path.Combine(wwwwroot, "images\\" + productDto.Image);
+            var exists = System.IO.File.Exists(image);
+            ViewBag.ImageExist = exists;
+
+            return View(productDto);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

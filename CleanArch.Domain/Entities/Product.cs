@@ -52,6 +52,11 @@ namespace CleanArch.Domain.Entities
                            int categoryId)
         {
             ValidateDomain(name, description, price, stock, image);
+            Name = name;
+            Description = description;
+            Price = price;
+            Stock = stock;
+            Image = image;
             CategoryId = categoryId;
         }
 

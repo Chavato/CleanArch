@@ -37,6 +37,9 @@
                                 asp-action="Index">Products</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ml-auto">
+                        @await Html.PartialAsync("_LoginPartial")
+                    </ul>
                 </div>
             </div>
         </nav>

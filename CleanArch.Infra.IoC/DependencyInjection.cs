@@ -8,6 +8,9 @@ using CleanArch.Application.Services;
 using CleanArch.Application.Interfaces;
 using CleanArch.Application.Mappings;
 using MediatR;
+using CleanArch.Infra.Data.Identity;
+using Microsoft.AspNetCore.Identity;
+using CleanArch.Domain.Account;
 
 namespace CleanArch.Infra.IoC
 {
@@ -18,6 +21,15 @@ namespace CleanArch.Infra.IoC
             services.AddDbContext<ApplicationDbContext>(option =>
                 option.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Account/Login");
+
+            services.AddScoped<IAuthenticate, AuthenticateService>();
+            services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();

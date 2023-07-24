@@ -5,11 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using CleanArch.Application.DTOs;
 using CleanArch.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArch.WebUI.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly ILogger<CategoriesController> _logger;
@@ -73,6 +75,7 @@ namespace CleanArch.WebUI.Controllers
             return View(category);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

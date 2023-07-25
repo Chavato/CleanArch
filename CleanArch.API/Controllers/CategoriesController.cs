@@ -28,7 +28,7 @@ namespace CleanArch.API.Controllers
             return Ok(categories);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetCategory")]
         public async Task<ActionResult<CategoryDTO>> Get(int id)
         {
             var category = await _categoryService.GetById(id);
@@ -38,6 +38,19 @@ namespace CleanArch.API.Controllers
             }
 
             return Ok(category);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] CategoryDTO categoryDto)
+        {
+            if (categoryDto == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            await _categoryService.Add(categoryDto);
+            
+            return CreatedAtRoute("GetCategory", new { id = categoryDto.Id }, categoryDto);
         }
     }
 }

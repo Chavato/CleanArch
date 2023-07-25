@@ -49,8 +49,27 @@ namespace CleanArch.API.Controllers
             }
 
             await _categoryService.Add(categoryDto);
-            
+
             return CreatedAtRoute("GetCategory", new { id = categoryDto.Id }, categoryDto);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDto)
+        {
+            if (categoryDto == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            if (id != categoryDto.Id)
+            {
+                return BadRequest("Invalid id.");
+            }
+
+            await _categoryService.Update(categoryDto);
+
+            return Ok(categoryDto);
+
         }
     }
 }

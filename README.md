@@ -4,6 +4,7 @@ Com ele é possível criar diferentes categorias e produtos, edita-los e remove-
 sistema de login.
 
 Ele foi dividido em 7 camadas, são elas:
+
     -CleanArch.Domain:
         Responsavel por guardar e validar as principais regras de negocio, não depende de outros projetos para funcionar.
 

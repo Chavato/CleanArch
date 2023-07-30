@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using CleanArch.Application.Interfaces;
 using CleanArch.Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CleanArch.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
